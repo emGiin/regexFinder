@@ -2,5 +2,12 @@
     "name": "regexFinder",
     "version": "0.1",
     "description": "Regex based CTRL+F",
+    "page_action": {
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
     "manifest_version": 2
   }
