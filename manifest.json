@@ -1,0 +1,6 @@
+  {
+    "name": "regexFinder",
+    "version": "0.1",
+    "description": "Regex based CTRL+F",
+    "manifest_version": 2
+  }
