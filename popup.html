@@ -1,15 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <style>
-      button {
-        height: 30px;
-        width: 30px;
-        outline: none;
-      }
-    </style>
-  </head>
-  <body>
-    <button id="changeColor"></button>
-  </body>
+
+<head>
+  <script src="popup.js"></script>
+</head>
+<style>
+  @import url('https://fonts.googleapis.com/css?family=Damion|Muli:400,600');
+  body {
+    font-family: 'Muli', sans-serif;
+    background: ivory;
+    width: 300px;
+  }
+
+  h1 {
+    color: #555;
+  }
+
+  input {
+    border-style: none;
+    background: rgba(240, 240, 240, 0.6);
+    outline: none;
+    border-radius: 4px;
+    height: 35px;
+    line: 30px;
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  input[type="text"] {
+    font: 15px/24px 'Muli', sans-serif;
+    color: #333;
+    width: 100%;
+    box-sizing: border-box;
+    letter-spacing: 1px;
+    width: 99%;
+    background: whitesmoke;
+    border-bottom: solid lavender 2px
+  }
+
+  :focus {
+    outline: none;
+  }
+
+  .signature {
+    color: lightgrey;
+    float: right;
+  }
+</style>
+
+<body>
+  <h1>Regex finder</h1>
+  <input type="text" name="query" class: "" id="query" autofocus>
+  <p class="signature">By Handaoui & Birouk</p>
+</body>
+
 </html>
