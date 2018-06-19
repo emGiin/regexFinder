@@ -5,9 +5,7 @@ const search = query => {
       code: 'var query = ' + JSON.stringify(query)
     },
     () => {
-      chrome.tabs.executeScript(null, { file: 'search.js' }, res =>
-        chrome.browserAction.setBadgeText({ text: res[0] + '' })
-      );
+      chrome.tabs.executeScript(null, { file: 'search.js' });
     }
   );
 };
@@ -27,5 +25,27 @@ document.addEventListener('DOMContentLoaded', () => {
     search(query);
     save(query);
   });
+
+  activationBtn.addEventListener('click', () => {
+    chrome.storage.sync.get(['isActivated'], data => {
+      chrome.storage.sync.set({ isActivated: !data.isActivated }, () => {
+        document
+          .getElementById('activationBtn')
+          .classList.toggle('deactivated');
+        document.getElementById('query').classList.toggle('hidden');
+      });
+    });
+  });
+
+  chrome.storage.sync.get(['isActivated'], data => {
+    if (!data.isActivated) {
+      document.getElementById('activationBtn').classList.add('deactivated');
+      document.getElementById('query').classList.add('hidden');
+    } else {
+      document.getElementById('activationBtn').classList.remove('deactivated');
+      document.getElementById('query').classList.remove('hidden');
+    }
+  });
+
   load();
 });
