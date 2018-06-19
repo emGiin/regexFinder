@@ -1,7 +1,7 @@
 var query;
 if (query) findAndHighlight(query);
-/// FUNCTIONS
 
+/// FUNCTIONS
 function findAndHighlight(query) {
   chrome.storage.sync.get(['isActivated'], data => {
     if (data.isActivated) {
