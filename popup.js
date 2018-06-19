@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', () => {
           .getElementById('activationBtn')
           .classList.toggle('deactivated');
         document.getElementById('query').classList.toggle('hidden');
+        chrome.runtime.sendMessage({
+          newIconPath: data.isActivated ? 'icon_off.png' : 'icon.png'
+        });
       });
     });
   });

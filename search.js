@@ -6,7 +6,6 @@ function findAndHighlight(query) {
   chrome.storage.sync.get(['isActivated'], data => {
     if (data.isActivated) {
       var regex = new RegExp('\\b' + query + '\\b', 'g');
-      // var regex2 = new RegExp('(\\b' + query + '\\b)', 'g');
 
       var oldResults = document.getElementsByClassName('searchResults');
       if (oldResults.length) unwrap(oldResults);
@@ -16,8 +15,10 @@ function findAndHighlight(query) {
           wrapMatchesInNode(node, regex);
         }
       });
+      chrome.runtime.sendMessage({
+        n: document.getElementsByClassName('searchResults').length + ''
+      });
     }
-    chrome.runtime.sendMessage({n : document.getElementsByClassName("searchResults").length +""});
   });
 }
 
@@ -54,24 +55,6 @@ function wrapMatchesInNode(textNode, regex) {
   }
   textNode.parentNode.removeChild(textNode);
 }
-
-// traverseDOM(document.body, function(node) {
-//   var text = node.data.split(regex2),
-//     parent = node.parentNode,
-//     newNode;
-
-//   parent.insertBefore(textNode(text[0]), node);
-
-//   for (var i = 1; i < text.length; i += 2) {
-//     newNode = document.createElement('span');
-//     newNode.className = 'searchResults';
-//     newNode.style.cssText = 'background: salmon; padding:3px;';
-//     newNode.innerText = text[i];
-//     parent.insertBefore(newNode, node);
-//     parent.insertBefore(textNode(text[i + 1]), node);
-//   }
-//   parent.removeChild(node);
-// });
 
 function unwrap(wrappers) {
   Array.from(wrappers).forEach(function(wrapper) {
