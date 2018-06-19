@@ -1,23 +1,34 @@
-var regex = new RegExp('\\b' + query + '\\b', 'g');
-// var regex2 = new RegExp('(\\b' + query + '\\b)', 'g');
 
-var oldResults = document.getElementsByClassName('searchResults');
-if (oldResults.length) unwrap(oldResults);
 
-traverseDOM(document.body, function(node) {
-  if (regex.test(node.data)) {
-    wrapMatchesInNode(node);
-  }
-});
+if(query) findAndHighlight(query);
 
-document.getElementsByClassName('searchResults').length;
+/// FUNCTIONS
 
-/// FUNCTIONS 
+function findAndHighlight(query) {
+  var regex = new RegExp('\\b' + query + '\\b', 'g');
+  // var regex2 = new RegExp('(\\b' + query + '\\b)', 'g');
+
+  var oldResults = document.getElementsByClassName('searchResults');
+  if (oldResults.length) unwrap(oldResults);
+
+  traverseDOM(document.body, function(node) {
+    if (regex.test(node.data)) {
+      wrapMatchesInNode(node, regex);
+    }
+  });
+
+  document.getElementsByClassName('searchResults').length;
+}
+
 function traverseDOM(el, fn) {
   for (var i = 0, len = el.childNodes.length; i < len; i++) {
     var node = el.childNodes[i];
     if (node.nodeType === 3) fn(node);
-    else if (node.nodeType === 1 && node.nodeName !== 'SCRIPT'  && !(node.tagName == "SPAN" && node.className == "searchResults") )
+    else if (
+      node.nodeType === 1 &&
+      node.nodeName !== 'SCRIPT' &&
+      !(node.tagName == 'SPAN' && node.className == 'searchResults')
+    )
       traverseDOM(node, fn);
   }
 }
@@ -26,7 +37,7 @@ function textNode(txt) {
   return document.createTextNode(txt);
 }
 
-function wrapMatchesInNode(textNode) {
+function wrapMatchesInNode(textNode, regex) {
   var temp = document.createElement('div');
 
   temp.innerHTML = textNode.data.replace(
