@@ -1,23 +1,24 @@
-
-
-if(query) findAndHighlight(query);
-
+var query;
+if (query) findAndHighlight(query);
 /// FUNCTIONS
 
 function findAndHighlight(query) {
-  var regex = new RegExp('\\b' + query + '\\b', 'g');
-  // var regex2 = new RegExp('(\\b' + query + '\\b)', 'g');
+  chrome.storage.sync.get(['isActivated'], data => {
+    if (data.isActivated) {
+      var regex = new RegExp('\\b' + query + '\\b', 'g');
+      // var regex2 = new RegExp('(\\b' + query + '\\b)', 'g');
 
-  var oldResults = document.getElementsByClassName('searchResults');
-  if (oldResults.length) unwrap(oldResults);
+      var oldResults = document.getElementsByClassName('searchResults');
+      if (oldResults.length) unwrap(oldResults);
 
-  traverseDOM(document.body, function(node) {
-    if (regex.test(node.data)) {
-      wrapMatchesInNode(node, regex);
+      traverseDOM(document.body, function(node) {
+        if (regex.test(node.data)) {
+          wrapMatchesInNode(node, regex);
+        }
+      });
     }
+    chrome.runtime.sendMessage({n : document.getElementsByClassName("searchResults").length +""});
   });
-
-  document.getElementsByClassName('searchResults').length;
 }
 
 function traverseDOM(el, fn) {
